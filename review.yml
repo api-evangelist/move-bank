@@ -1,0 +1,84 @@
+aid: move-bank
+name: MOVE Bank
+review:
+  question: Does MOVE Bank expose a confirmed, live public Consumer Data Right (CDR)
+    Product Reference Data (PRD) API, and is its documented developer surface reachable?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+  specProvenance: >
+    The PRD conforms to the shared Data Standards Body (DSB) Consumer Data Standards
+    banking APIs (Get Products). It is the industry-wide CDS standard contract, NOT
+    a MOVE Bank-proprietary OpenAPI. Any harvested specification represents the DSB
+    standard the endpoint implements, not a bank-authored document.
+findings:
+  summary: |
+    MOVE Bank (MoveBank Ltd, ABN 91 087 651 090, AFSL/Australian credit licence
+    234 536) is a 100% customer-owned Australian mutual bank, formerly Railways
+    Credit Union, and an authorised deposit-taking institution participating in
+    the Consumer Data Right as a data holder. Its public, unauthenticated Product
+    Reference Data (PRD) API is CONFIRMED LIVE: a GET to
+    https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
+    with header x-v: 4 returned HTTP 200, an x-v: 4 response header, and a JSON
+    body containing a data.products array. Version negotiation is CDS-compliant:
+    x-v values 1, 2, 3 and 5 each returned HTTP 406 with the standard
+    urn:au-cds:error:cds-all:Header/UnsupportedVersion envelope ("Available: 4"),
+    confirming Get Products v4 is the sole supported version. The public
+    PublicBaseUri is https://openbanking.movebank.com.au/OpenBanking (the host is
+    Cloudflare-fronted; the root serves a generic IIS page, while the /OpenBanking
+    developer documentation page returns HTTP 200 HTML).
+
+    Caveat on the advertised developer link: MOVE Bank's public open-banking page
+    (https://www.movebank.com.au/about-us/corporate-information/open-banking/)
+    links developers to https://api.movebank.com.au/OpenBanking, but the host
+    api.movebank.com.au has NO DNS A record and does not resolve. The live,
+    working developer/OpenBanking surface is instead at
+    https://openbanking.movebank.com.au/OpenBanking. No separate broader developer
+    portal (e.g. an Up-style personal-banking API or NAB/CommBank-style portal)
+    was found; MOVE Bank's public API surface is limited to the CDR PRD.
+  authModel: |
+    The Product Reference Data API is public and unauthenticated by design (CDR
+    requirement). Consumer data sharing beyond PRD (accounts, balances,
+    transactions, direct debits, scheduled payments, payees) follows the CDR
+    Accredited Data Recipient (ADR) model: OAuth2 / OpenID Connect under the CDR
+    Security Profile (FAPI-based), requiring ACCC accreditation and consumer
+    consent. Joint-account data sharing is noted by the bank as not currently
+    available.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://openbanking.movebank.com.au/OpenBanking
+      documented: true
+      note: CDS banking PRD; Get Products confirmed at /cds-au/v1/banking/products (x-v 4).
+  endpointsConfirmed:
+    - GET https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
+  probeResults:
+    - request: GET /cds-au/v1/banking/products?page-size=1  (x-v 4)
+      status: 200
+      note: Returned x-v 4 header and JSON data.products array. LIVE.
+    - request: same endpoint with x-v 1/2/3/5
+      status: 406
+      note: urn:au-cds:error:cds-all:Header/UnsupportedVersion, "Available 4".
+    - request: GET https://api.movebank.com.au/OpenBanking (advertised dev-docs link)
+      status: 0
+      note: DNS ENOTFOUND / no A record. Advertised host does not resolve.
+    - request: GET https://openbanking.movebank.com.au/OpenBanking (developer docs)
+      status: 200
+      note: Live HTML developer/OpenBanking documentation page.
+sources:
+  - url: https://www.movebank.com.au/
+    type: Website
+    note: Identity, mutual/customer-owned status, ABN/AFSL, footer legal entity MoveBank Ltd.
+  - url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+    type: Documentation
+    note: CDR/open-banking participation statement; links (dead) to api.movebank.com.au/OpenBanking.
+  - url: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
+    type: APIReference
+    note: Confirmed live CDR PRD endpoint (HTTP 200, x-v 4).
+  - url: https://openbanking.movebank.com.au/OpenBanking
+    type: Documentation
+    note: Live developer/OpenBanking documentation page (HTTP 200).
+  - url: https://consumerdatastandardsaustralia.github.io/standards/
+    type: Documentation
+    note: DSB Consumer Data Standards the PRD Get Products endpoint conforms to.

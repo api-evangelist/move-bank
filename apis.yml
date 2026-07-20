@@ -1,0 +1,73 @@
+aid: move-bank
+url: https://raw.githubusercontent.com/api-evangelist/move-bank/refs/heads/main/apis.yml
+name: MOVE Bank
+kind: company
+description: MOVE Bank is a 100% customer-owned Australian mutual bank operated by MoveBank
+  Ltd (ABN 91 087 651 090, AFSL/Australian credit licence 234 536), headquartered in
+  Brisbane, Queensland. Founded in 1968 as Railways Credit Union to serve railway workers
+  and their families, it rebranded to MOVE Bank in 2018 to serve the broader transport
+  and logistics community nationally, and today manages more than $750 million in assets
+  across transaction and savings accounts, term deposits, home and personal loans, and
+  insurance. As an authorised deposit-taking institution, MOVE Bank participates in
+  Australia's Consumer Data Right (CDR / Open Banking) as a data holder, exposing a
+  public, unauthenticated Product Reference Data (PRD) API conforming to the Data Standards
+  Body's Consumer Data Standards, alongside the accredited, consent-based consumer data
+  sharing surface governed by the CDR security profile.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Open Banking
+- CDR
+- Consumer Banking
+- Mutual Bank
+- Australia
+- Product Reference Data
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: move-bank:move-bank-cdr-product-reference-data-api
+  name: MOVE Bank CDR Product Reference Data API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Australia
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://openbanking.movebank.com.au/OpenBanking
+  baseURL: https://openbanking.movebank.com.au/OpenBanking
+  properties:
+  - url: https://openbanking.movebank.com.au/OpenBanking
+    type: Documentation
+  - url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+    type: APIReference
+  - url: openapi/move-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Consumer Data Right Product Reference Data (PRD)
+    API exposing MOVE Bank's banking product catalogue (home loans, personal loans,
+    transaction and savings accounts, term deposits, and card facilities) under the
+    standard CDS path /cds-au/v1/banking/products. Confirmed live (HTTP 200, x-v 4)
+    at https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products,
+    returning a data.products array and CDS-compliant error envelopes. Conforms to
+    the Data Standards Body Consumer Data Standards banking APIs (shared standard,
+    not a bank-proprietary contract).
+common:
+- type: Website
+  url: https://www.movebank.com.au/
+- type: DeveloperPortal
+  url: https://openbanking.movebank.com.au/OpenBanking
+- type: Documentation
+  url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/movebanksocial
+- type: Blog
+  url: https://www.movebank.com.au/about-us/news/
+- type: PrivacyPolicy
+  url: https://www.movebank.com.au/about-us/corporate-information/privacy-policy-summary/
+- type: TermsOfService
+  url: https://www.movebank.com.au/about-us/corporate-information/conditions-of-use/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
