@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: searched
+source: live probes of MOVE Bank hosts
+note: >
+  MOVE Bank exposes no /.well-known/ discovery surface on either its public
+  Product Reference Data host (openbanking.movebank.com.au) or its corporate
+  host (www.movebank.com.au). The CDR consumer-data-sharing InfoSec/OIDC surface
+  (which would carry openid-configuration) is separate, non-public, and gated to
+  accredited data recipients via the ACCC CDR Register, so it is not reachable
+  here. Absence recorded as valid data; no positive well-known catalog to index.
+hosts:
+- host: https://openbanking.movebank.com.au
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /OpenBanking/.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://www.movebank.com.au
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404

@@ -1,0 +1,80 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/move-bank-cds-banking-products-openapi.yml (DSB CDR Banking API v1.36.0, PRD schemas)
+note: >
+  Entity-relationship graph derived from the public Product Reference Data schemas
+  ($ref composition of BankingProductDetailV7). Covers only the publicly exposed
+  product domain; the authenticated account/transaction/payee domain is out of the
+  public surface. id-prefixes are not standardised by CDS (productId is an opaque
+  ASCII string assigned by the data holder).
+entities:
+- name: BankingProduct
+  schema: BankingProductV6
+  id_field: productId
+  summary_of: ResponseBankingProductListV4 (Get Products)
+- name: BankingProductDetail
+  schema: BankingProductDetailV7
+  id_field: productId
+  detail_of: BankingProduct
+  returned_by: getBankingProductDetail
+relationships:
+- from: BankingProductDetail
+  to: BankingProductBundle
+  type: has_many
+  via: bundles
+- from: BankingProductDetail
+  to: BankingProductFeatureV4
+  type: has_many
+  via: features
+- from: BankingProductDetail
+  to: BankingProductConstraintV3
+  type: has_many
+  via: constraints
+- from: BankingProductDetail
+  to: BankingProductEligibilityV2
+  type: has_many
+  via: eligibility
+- from: BankingProductDetail
+  to: BankingProductFeeV2
+  type: has_many
+  via: fees
+- from: BankingProductFeeV2
+  to: BankingProductDiscountV2
+  type: has_many
+  via: discounts
+- from: BankingProductDiscountV2
+  to: BankingProductDiscountEligibility
+  type: has_many
+  via: eligibility
+- from: BankingProductDetail
+  to: BankingProductDepositRateV2
+  type: has_many
+  via: depositRates
+- from: BankingProductDetail
+  to: BankingProductLendingRateV3
+  type: has_many
+  via: lendingRates
+- from: BankingProductDepositRateV2
+  to: BankingProductRateTierV4
+  type: has_many
+  via: tiers
+- from: BankingProductLendingRateV3
+  to: BankingProductRateTierV4
+  type: has_many
+  via: tiers
+- from: BankingProductRateTierV4
+  to: BankingProductRateConditionV2
+  type: has_one
+  via: applicabilityConditions
+- from: BankingProductDetail
+  to: BankingProductAdditionalInformationV2
+  type: has_one
+  via: additionalInformation
+- from: BankingProductDetail
+  to: BankingProductCardArt
+  type: has_many
+  via: cardArt
+- from: BankingProductV6
+  to: BankingProductCategoryV2
+  type: has_one
+  via: productCategory

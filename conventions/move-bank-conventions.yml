@@ -1,0 +1,67 @@
+generated: '2026-07-20'
+method: derived
+source: >
+  openapi/move-bank-cds-banking-products-openapi.yml (DSB CDR Banking API
+  v1.36.0) + Consumer Data Standards conventions
+  (consumerdatastandardsaustralia.github.io/standards).
+authentication:
+  style: none (PRD public) / CDR Security Profile OAuth2+OIDC+mTLS (consumer sharing)
+  ref: authentication/move-bank-authentication.yml
+versioning:
+  style: header
+  request_headers: [x-v, x-min-v]
+  response_header: x-v
+  description: >
+    Endpoint versions are negotiated per request via the x-v header (the maximum
+    version the client supports) and optional x-min-v (the minimum acceptable).
+    The server responds with the version served in the x-v response header, or
+    406 Unsupported Version when it cannot satisfy the range. Get Products
+    currently supports only v4.
+  ref: lifecycle/move-bank-lifecycle.yml
+idempotency:
+  supported: false
+  reason: >
+    The published MOVE Bank surface is read-only (HTTP GET, plus CDS bulk POST
+    lookups that are non-mutating). There is no create/update/delete contract, so
+    no Idempotency-Key mechanism applies.
+pagination:
+  style: page-number
+  request_params: [page, page-size]
+  page_size_default: 25
+  page_size_max: 1000
+  response_fields:
+    links: [self, first, prev, next, last]
+    meta: [totalRecords, totalPages]
+  schemas: [LinksPaginated, MetaPaginated]
+  description: >
+    Collection endpoints page via page (1-based) and page-size query params,
+    returning LinksPaginated (self/first/prev/next/last) and MetaPaginated
+    (totalRecords, totalPages). An out-of-range page yields 422 Invalid Page.
+request_tracing:
+  header: x-fapi-interaction-id
+  description: >
+    CDS uses the FAPI interaction id for tracing: clients may send
+    x-fapi-interaction-id and the server echoes it on the response (a new one is
+    generated when absent). Related FAPI headers on the authenticated surface:
+    x-fapi-auth-date, x-fapi-customer-ip-address, x-cds-client-headers.
+field_selection:
+  supported: false
+  note: CDS returns fixed resource representations; no sparse-fieldset/expand params.
+error_envelope:
+  shape: cds-response-error-list
+  schema: ResponseErrorListV2
+  format: not-rfc9457
+  fields: ['errors[].code', 'errors[].title', 'errors[].detail', 'errors[].meta']
+  code_scheme: urn:au-cds:error:cds-all:*
+  description: >
+    Errors return a ResponseErrorListV2 body — an errors[] array where each entry
+    carries a URN code (e.g. urn:au-cds:error:cds-all:Header/UnsupportedVersion),
+    a stable title, an occurrence-specific detail, and optional meta. This is the
+    CDS error contract, NOT RFC 9457 problem+json.
+  ref: errors/move-bank-problem-types.yml
+rate_limiting:
+  documented: false
+  note: >
+    CDR defines traffic-thresholds at the regime level (unattended vs
+    customer-present, unauthenticated PRD tiers) rather than per-response headers;
+    MOVE Bank publishes no per-endpoint rate-limit signaling for the public PRD.

@@ -1,0 +1,66 @@
+generated: '2026-07-20'
+method: derived
+source: >
+  openapi/move-bank-cds-banking-products-openapi.yml response definitions +
+  Consumer Data Standards error-code registry
+  (consumerdatastandardsaustralia.github.io/standards).
+format: cds-response-error-list
+envelope: ResponseErrorListV2
+envelope_fields: ['errors[].code', 'errors[].title', 'errors[].detail', 'errors[].meta']
+note: >
+  MOVE Bank's public PRD returns the CDS ResponseErrorListV2 envelope with
+  urn:au-cds error codes — NOT RFC 9457 problem+json. Codes below are the CDS
+  standard set the Get Products / Get Product Detail operations MUST support, as
+  declared in the harvested OpenAPI response descriptions.
+problems:
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Invalid
+  title: Invalid Field
+  remediation: Correct the malformed query field value and retry.
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Missing
+  title: Missing Required Field
+  remediation: Supply the required field.
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/Missing
+  title: Missing Required Header
+  remediation: Supply the required header (e.g. x-v).
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/InvalidVersion
+  title: Invalid Version
+  remediation: Send a numeric x-v header value.
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidDateTime
+  title: Invalid Date
+  remediation: Use a valid DateString/DateTimeString for date query params (e.g. updated-since).
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidPageSize
+  title: Invalid Page Size
+  remediation: Use page-size within the allowed range (1..1000).
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 406
+  code: urn:au-cds:error:cds-all:Header/UnsupportedVersion
+  title: Unsupported Version
+  remediation: Request a supported version; Get Products currently supports x-v 4 only (Available 4).
+  confirmed: true
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 422
+  code: urn:au-cds:error:cds-all:Field/InvalidPage
+  title: Invalid Page
+  remediation: Request a page number within the available range (see meta.totalPages).
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- status: 404
+  code: urn:au-cds:error:cds-all:Resource/NotFound
+  title: Unavailable Resource
+  remediation: The productId does not exist or is no longer available.
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#getBankingProductDetail
+- status: 404
+  code: urn:au-cds:error:cds-all:Resource/Invalid
+  title: Invalid Resource
+  remediation: The productId is malformed.
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#getBankingProductDetail

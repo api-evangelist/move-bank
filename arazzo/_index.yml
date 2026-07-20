@@ -1,0 +1,7 @@
+generated: '2026-07-20'
+method: derived
+workflows:
+- file: move-bank-discover-products.yml
+  workflowId: discoverProducts
+  title: Discover MOVE Bank banking products
+  summary: List public CDR products then fetch detail for the first product returned.

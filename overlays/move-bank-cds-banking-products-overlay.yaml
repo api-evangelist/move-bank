@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for MOVE Bank CDR Product Reference Data API
+  version: 1.0.0
+extends: openapi/move-bank-cds-banking-products-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: move-bank
+    x-apievangelist-note: >
+      Harvested spec is the shared DSB CDR Banking API standard (v1.36.0). MOVE
+      Bank publicly exposes ONLY the unauthenticated Product Reference Data
+      operations (listBankingProducts, getBankingProductDetail); all other
+      operations require the CDR Security Profile (ACCC accreditation + consent).
+    x-apievangelist-public-base-url: https://openbanking.movebank.com.au/OpenBanking
+- target: $.servers
+  update:
+  - description: MOVE Bank public Product Reference Data (CDR)
+    url: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1
+- target: $.paths['/banking/products'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-confirmed: "HTTP 200, x-v 4 (2026-07-20)"
+    x-apievangelist-required-header: "x-v: 4"
+- target: $.paths['/banking/products/{productId}'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-required-header: "x-v: 4"

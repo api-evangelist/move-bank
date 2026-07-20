@@ -1,0 +1,29 @@
+# MOVE Bank
+
+> MOVE Bank (MoveBank Ltd, ABN 91 087 651 090, AFSL/Australian credit licence 234 536) is a 100% customer-owned Australian mutual bank, founded 1968 as Railways Credit Union and rebranded in 2018. As an authorised deposit-taking institution it participates in Australia's Consumer Data Right (CDR / Open Banking) as a data holder, exposing a public, unauthenticated Product Reference Data (PRD) API conforming to the Data Standards Body Consumer Data Standards.
+
+## APIs
+
+- [MOVE Bank CDR Product Reference Data API](https://openbanking.movebank.com.au/OpenBanking): Public, unauthenticated CDS banking Get Products endpoint. Live at https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products (HTTP 200, x-v 4). Returns a data.products array of banking products (home/personal loans, transaction and savings accounts, term deposits, cards).
+
+## Specs
+
+- [OpenAPI (DSB CDR Banking API v1.36.0)](openapi/move-bank-cds-banking-products-openapi.yml): The shared Consumer Data Standards banking contract the endpoint conforms to. MOVE Bank publicly exposes only the Get Products / Get Product Detail operations; all other operations require the CDR Security Profile.
+
+## Artifacts
+
+- [Authentication](authentication/move-bank-authentication.yml): Two-tier model — PRD is unauthenticated; consumer data sharing uses the CDR Security Profile (OAuth2 + OIDC + mTLS, ACCC accreditation + consent).
+- [Conventions](conventions/move-bank-conventions.yml): x-v/x-min-v header versioning, page/page-size pagination, x-fapi-interaction-id tracing, CDS error envelope, read-only (no idempotency).
+- [Error catalog](errors/move-bank-problem-types.yml): CDS ResponseErrorListV2 with urn:au-cds error codes (not RFC 9457).
+- [Conformance](conformance/move-bank-conformance.yml): CDR Banking, CDS versioning/error contract, OAuth2/OIDC/FAPI (CDR Security Profile).
+- [Lifecycle](lifecycle/move-bank-lifecycle.yml): per-endpoint x-v versioning; Get Products is v4.
+- [Data model](data-model/move-bank-data-model.yml): banking product entity graph.
+- [MCP server (candidate)](mcp/move-bank-mcp.yml): derived candidate tools for the public PRD operations.
+- [Agent skill](skills/move-bank-discover-products.md): discover MOVE Bank banking products.
+
+## Docs
+
+- [Open Banking / CDR participation](https://www.movebank.com.au/about-us/corporate-information/open-banking/)
+- [CDR Policy (PDF)](https://www.movebank.com.au/reusable-documents/important-documents/cdr-policy/)
+- [Consumer Data Standards](https://consumerdatastandardsaustralia.github.io/standards/)
+- [Website](https://www.movebank.com.au/)

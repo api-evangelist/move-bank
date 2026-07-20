@@ -54,6 +54,41 @@ apis:
     the Data Standards Body Consumer Data Standards banking APIs (shared standard,
     not a bank-proprietary contract).
 common:
+- type: AgenticAccess
+  url: agentic-access/move-bank-agentic-access.yml
+- type: DomainSecurity
+  url: security/move-bank-domain-security.yml
+- type: Authentication
+  url: authentication/move-bank-authentication.yml
+- type: Conventions
+  url: conventions/move-bank-conventions.yml
+- type: ErrorCatalog
+  url: errors/move-bank-problem-types.yml
+- type: Conformance
+  url: conformance/move-bank-conformance.yml
+- type: Compliance
+  url: https://www.movebank.com.au/reusable-documents/important-documents/cdr-policy/
+- type: Lifecycle
+  url: lifecycle/move-bank-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/move-bank-lifecycle.yml
+- type: MCPServer
+  url: mcp/move-bank-mcp.yml
+- type: LLMsTxt
+  url: llms/move-bank-llms.txt
+- type: Overlay
+  url: overlays/move-bank-cds-banking-products-overlay.yaml
+- type: DataModel
+  url: data-model/move-bank-data-model.yml
+- type: AgentSkill
+  url: skills/move-bank-discover-products.md
+- type: Arazzo
+  name: Discover MOVE Bank banking products
+  url: arazzo/move-bank-discover-products.yml
+- type: GettingStarted
+  url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- type: APIReference
+  url: https://consumerdatastandardsaustralia.github.io/standards/
 - type: Website
   url: https://www.movebank.com.au/
 - type: DeveloperPortal

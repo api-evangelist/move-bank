@@ -1,0 +1,26 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/move-bank-cds-banking-products-openapi.yml
+note: >
+  No official/hosted MOVE Bank MCP server exists. This is a derived candidate tool
+  list covering the PUBLIC, unauthenticated Product Reference Data operations only
+  (the two operations any agent can call without ACCC accreditation or consumer
+  consent). The remaining CDR banking operations require the CDR Security Profile
+  and are intentionally excluded from a public MCP surface.
+server:
+  name: move-bank-prd
+  transport: http
+  url: null
+tools:
+- name: list_banking_products
+  description: >
+    List MOVE Bank's publicly available banking products (accounts, loans, term
+    deposits, cards). Supports effective/updated-since/brand/product-category
+    filters and page/page-size paging. Send header x-v: 4.
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#listBankingProducts
+- name: get_banking_product_detail
+  description: >
+    Retrieve the full detail of a single MOVE Bank product (rates, fees, features,
+    eligibility, constraints) by productId. Send header x-v: 4.
+  source_operation: openapi/move-bank-cds-banking-products-openapi.yml#getBankingProductDetail

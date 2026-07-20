@@ -1,0 +1,55 @@
+arazzo: 1.0.1
+info:
+  title: Discover MOVE Bank banking products
+  version: 1.0.0
+  summary: >
+    List MOVE Bank's public CDR banking products then fetch full detail for the
+    first one — an unauthenticated, forkable Product Reference Data walkthrough.
+sourceDescriptions:
+- name: moveBankCds
+  url: ../openapi/move-bank-cds-banking-products-openapi.yml
+  type: openapi
+workflows:
+- workflowId: discoverProducts
+  summary: List products, then retrieve detail for the first product returned.
+  description: >
+    Calls Get Products (public, x-v 4) to page the product catalogue, then Get
+    Product Detail for the first productId. No authentication required.
+  inputs:
+    type: object
+    properties:
+      pageSize:
+        type: integer
+        default: 25
+      productCategory:
+        type: string
+  steps:
+  - stepId: listProducts
+    operationId: listBankingProducts
+    parameters:
+    - name: x-v
+      in: header
+      value: '4'
+    - name: page-size
+      in: query
+      value: $inputs.pageSize
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstProductId: $response.body#/data/products/0/productId
+  - stepId: getProductDetail
+    operationId: getBankingProductDetail
+    parameters:
+    - name: x-v
+      in: header
+      value: '4'
+    - name: productId
+      in: path
+      value: $steps.listProducts.outputs.firstProductId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      productDetail: $response.body#/data
+  outputs:
+    firstProductId: $steps.listProducts.outputs.firstProductId
+    productDetail: $steps.getProductDetail.outputs.productDetail

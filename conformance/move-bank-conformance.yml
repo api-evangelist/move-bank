@@ -1,0 +1,47 @@
+generated: '2026-07-20'
+method: derived
+source: >
+  openapi/move-bank-cds-banking-products-openapi.yml + review.yml probe evidence +
+  Consumer Data Standards / CDR Security Profile.
+standards:
+- id: cdr-banking
+  name: Consumer Data Right — Banking (Consumer Data Standards, DSB)
+  conforms: true
+  evidence: >
+    Live PRD endpoint at /cds-au/v1/banking/products returns HTTP 200 with x-v 4
+    and a CDS data.products envelope; version negotiation returns the standard
+    urn:au-cds:error:cds-all:Header/UnsupportedVersion on unsupported x-v.
+- id: cds-error-envelope
+  name: CDS ResponseErrorList error contract (urn:au-cds error codes)
+  conforms: true
+  evidence: 4xx/406/422 responses use ResponseErrorListV2 with urn:au-cds:error codes.
+- id: cds-header-versioning
+  name: CDS x-v / x-min-v endpoint version negotiation
+  conforms: true
+  evidence: x-v response header observed; 406 UnsupportedVersion on x-v 1/2/3/5.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: true
+  applies_to: consumer-data-sharing (non-PRD)
+  evidence: CDR Security Profile mandates OAuth2 for accredited data recipients; not exercised on the public PRD.
+- id: oidc
+  name: OpenID Connect
+  conforms: true
+  applies_to: consumer-data-sharing (non-PRD)
+  evidence: CDR Security Profile uses OIDC Hybrid flow with PAR/PKCE for consent.
+- id: fapi
+  name: FAPI (Financial-grade API) — CDR Security Profile
+  conforms: true
+  applies_to: consumer-data-sharing (non-PRD)
+  evidence: CDR Security Profile is FAPI 1.0 Advanced-based (mTLS, private_key_jwt, PAR).
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: Errors use the CDS ResponseErrorListV2 envelope, not application/problem+json.
+regulatory:
+- id: cdr-data-holder
+  name: CDR Data Holder (authorised deposit-taking institution)
+  program_url: https://www.movebank.com.au/reusable-documents/important-documents/cdr-policy/
+  evidence: >
+    MoveBank Ltd (ABN 91 087 651 090, AFSL/Australian credit licence 234 536) is an
+    ACCC-regulated CDR data holder and publishes a Consumer Data Right Policy.

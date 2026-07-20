@@ -1,0 +1,7 @@
+generated: '2026-07-20'
+method: generated
+skills:
+- file: move-bank-discover-products.md
+  name: Discover MOVE Bank banking products
+  api: openapi/move-bank-cds-banking-products-openapi.yml
+  operations: [listBankingProducts, getBankingProductDetail]
