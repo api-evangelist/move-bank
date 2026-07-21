@@ -1,0 +1,66 @@
+generated: '2026-07-21'
+method: searched
+docs: https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes
+source: >
+  Consumer Data Standards (Data Standards Body) authorisation-scopes registry +
+  CDR Security Profile. The harvested OpenAPI (shared DSB CDR Banking API v1.36.0)
+  declares no oauth2 securitySchemes, so derive-oauth-scopes.py yields nothing;
+  the scopes below are the standardised CDR data-cluster scopes that govern
+  MOVE Bank's consumer-data-sharing surface, mapped to the operations in
+  openapi/move-bank-cds-banking-products-openapi.yml. These are shared,
+  ecosystem-wide CDR scopes, not MOVE Bank-proprietary values.
+model: cdr-security-profile
+flow: >
+  OpenID Connect Hybrid flow under the CDR Security Profile (FAPI 1.0 Advanced-based)
+  with PAR, PKCE, private_key_jwt and mutual-TLS holder-of-key. Consent is captured
+  by data cluster; the resulting access token carries the scopes below. The public
+  Product Reference Data operations (listBankingProducts, getBankingProductDetail)
+  require NO scope and NO token.
+scopes:
+- scope: openid
+  cluster: identity
+  description: OpenID Connect authentication; required to establish the CDR authorisation.
+  operations: []
+- scope: profile
+  cluster: identity
+  description: Standard OIDC profile claims within the CDR identity assertion.
+  operations: []
+- scope: bank:accounts.basic:read
+  cluster: Account balance and details (basic)
+  description: >
+    Read account name, type, and balance. Grants the bulk/specific balance
+    operations and the account list without full account numbers.
+  operations: [listBankingAccounts, listBankingBalancesBulk, listBankingBalancesSpecificAccounts, getBankingBalance]
+- scope: bank:accounts.detail:read
+  cluster: Account balance and details
+  description: >
+    Read full account detail including account/BSB numbers and product features.
+  operations: [getBankingAccountDetail]
+- scope: bank:transactions:read
+  cluster: Transaction details
+  description: Read transaction history and individual transaction detail for consented accounts.
+  operations: [listBankingTransactions, getBankingTransactionDetail]
+- scope: bank:payees:read
+  cluster: Saved payees
+  description: Read the consumer's saved payees and payee detail.
+  operations: [listBankingPayees, getBankingPayeeDetail]
+- scope: bank:regular_payments:read
+  cluster: Direct debits and scheduled payments
+  description: >
+    Read direct debit authorisations and scheduled/recurring payment arrangements.
+  operations: [listDirectDebits, listDirectDebitsBulk, listDirectDebitsSpecificAccounts, listScheduledPayments, listScheduledPaymentsBulk, listScheduledPaymentsSpecificAccounts]
+- scope: common:customer.basic:read
+  cluster: Name and occupation
+  description: Read the consumer's basic customer profile (name, occupation).
+  operations: []
+- scope: common:customer.detail:read
+  cluster: Contact details
+  description: Read the consumer's detailed contact information (address, phone, email).
+  operations: []
+notes: >
+  Product Reference Data (PRD) is public and scope-free. All scoped operations
+  require ACCC accreditation as a Data Recipient plus explicit consumer consent
+  under the CDR consent model; scope grants are bounded by the consent duration
+  and the data clusters the consumer selected. Instalment-plan operations
+  (listInstalmentPlans*) sit within the accounts data clusters. See
+  authentication/move-bank-authentication.yml for the transport/token profile.

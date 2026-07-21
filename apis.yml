@@ -161,6 +161,8 @@ common:
   url: security/move-bank-domain-security.yml
 - type: Authentication
   url: authentication/move-bank-authentication.yml
+- type: OAuthScopes
+  url: scopes/move-bank-scopes.yml
 - type: Conventions
   url: conventions/move-bank-conventions.yml
 - type: ErrorCatalog
