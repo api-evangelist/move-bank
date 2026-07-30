@@ -13,7 +13,19 @@ description: MOVE Bank is a 100% customer-owned Australian mutual bank operated 
   public, unauthenticated Product Reference Data (PRD) API conforming to the Data Standards
   Body's Consumer Data Standards, alongside the accredited, consent-based consumer data
   sharing surface governed by the CDR security profile.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/move-bank.png
 tags:
 - Financial
 - Banks
@@ -27,133 +39,104 @@ created: '2026-07-20'
 modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
-- aid: move-bank:move-bank-cdr-product-reference-data-api
-  name: MOVE Bank CDR Product Reference Data API
-  tags:
-  - CDR
-  - Open Banking
-  - Product Reference Data
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: move-bank:move-bank-banking-account-balances-api
+  name: MOVE Bank Banking Account Balances API
+  description: Banking Account Balance endpoints
   humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
   baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
-  properties:
-  - url: https://openbanking.movebank.com.au/OpenBanking
-    type: Documentation
-  - url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-    type: APIReference
-  - url: openapi/move-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Public, unauthenticated Consumer Data Right Product Reference Data (PRD)
-    API exposing MOVE Bank's banking product catalogue (home loans, personal loans,
-    transaction and savings accounts, term deposits, and card facilities) under the
-    standard CDS path /cds-au/v1/banking/products. Confirmed live (HTTP 200, x-v 4)
-    at https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products,
-    returning a data.products array and CDS-compliant error envelopes. Covers the
-    Get Products and Get Product Detail operations. Conforms to the Data Standards
-    Body Consumer Data Standards banking APIs (shared standard, not a bank-proprietary
-    contract).
-- aid: move-bank:move-bank-cdr-accounts-balances-api
-  name: MOVE Bank CDR Accounts & Balances API
   tags:
-  - CDR
-  - Open Banking
-  - Accounts
-  - Balances
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/accounts
+  - Banking Account Balances
   properties:
-  - url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-    type: APIReference
-  - url: openapi/move-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right banking API for retrieving a
-    consented customer's accounts and balances, covering Get Accounts, Get Account
-    Detail, Get Bulk Balances, and Get Account Balance under the CDS paths
-    /cds-au/v1/banking/accounts, /accounts/{accountId}, /accounts/balances, and
-    /accounts/{accountId}/balance. Access requires the CDR consent, OAuth2/OIDC
-    authorization and MTLS holder-of-key security profile via an accredited data
-    recipient (ADR) — this is not public. The unauthenticated base path returned
-    HTTP 401 on probe (2026-07-21), confirming the live authorized surface. Conforms
-    to the Data Standards Body Consumer Data Standards banking APIs (shared standard,
-    not a bank-proprietary contract).
-- aid: move-bank:move-bank-cdr-transactions-api
-  name: MOVE Bank CDR Transactions API
+  - type: OpenAPI
+    url: openapi/move-bank-banking-account-balances-api-openapi.yml
+  - type: Documentation
+    url: https://openbanking.movebank.com.au/OpenBanking
+  - type: APIReference
+    url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- aid: move-bank:move-bank-banking-account-direct-debits-api
+  name: MOVE Bank Banking Account Direct Debits API
+  description: Banking Account Direct Debit endpoints
+  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Transactions
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/accounts/{accountId}/transactions
+  - Banking Account Direct Debits
   properties:
-  - url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-    type: APIReference
-  - url: openapi/move-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right banking API for retrieving a
-    consented customer's transactions, covering Get Transactions For Account and Get
-    Transaction Detail under the CDS paths /cds-au/v1/banking/accounts/{accountId}/transactions
-    and /accounts/{accountId}/transactions/{transactionId}. Access requires the CDR
-    consent, OAuth2/OIDC authorization and MTLS holder-of-key security profile via an
-    accredited data recipient (ADR) — this is not public. Conforms to the Data
-    Standards Body Consumer Data Standards banking APIs (shared standard, not a
-    bank-proprietary contract).
-- aid: move-bank:move-bank-cdr-direct-debits-scheduled-payments-api
-  name: MOVE Bank CDR Direct Debits & Scheduled Payments API
+  - type: OpenAPI
+    url: openapi/move-bank-banking-account-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://openbanking.movebank.com.au/OpenBanking
+  - type: APIReference
+    url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- aid: move-bank:move-bank-banking-account-scheduled-payments-api
+  name: MOVE Bank Banking Account Scheduled Payments API
+  description: Banking Account Scheduled Payment endpoints
+  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Direct Debits
-  - Scheduled Payments
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/accounts/direct-debits
+  - Banking Account Scheduled Payments
   properties:
-  - url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-    type: APIReference
-  - url: openapi/move-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right banking API for retrieving a
-    consented customer's regular payment arrangements, covering Get Direct Debits For
-    Account, Get Bulk Direct Debits, Get Scheduled Payments For Account, and Get Bulk
-    Scheduled Payments under the CDS paths /cds-au/v1/banking/accounts/{accountId}/direct-debits,
-    /accounts/direct-debits, /accounts/{accountId}/payments/scheduled, and
-    /payments/scheduled. Access requires the CDR consent, OAuth2/OIDC authorization
-    and MTLS holder-of-key security profile via an accredited data recipient (ADR) —
-    this is not public. Conforms to the Data Standards Body Consumer Data Standards
-    banking APIs (shared standard, not a bank-proprietary contract).
-- aid: move-bank:move-bank-cdr-payees-api
-  name: MOVE Bank CDR Payees API
+  - type: OpenAPI
+    url: openapi/move-bank-banking-account-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://openbanking.movebank.com.au/OpenBanking
+  - type: APIReference
+    url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- aid: move-bank:move-bank-banking-account-transactions-api
+  name: MOVE Bank Banking Account Transactions API
+  description: Banking Account Transaction endpoints
+  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Payees
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/payees
+  - Banking Account Transactions
   properties:
-  - url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
-    type: APIReference
-  - url: openapi/move-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right banking API for retrieving a
-    consented customer's saved payees, covering Get Payees and Get Payee Detail under
-    the CDS paths /cds-au/v1/banking/payees and /banking/payees/{payeeId}. Access
-    requires the CDR consent, OAuth2/OIDC authorization and MTLS holder-of-key
-    security profile via an accredited data recipient (ADR) — this is not public.
-    Conforms to the Data Standards Body Consumer Data Standards banking APIs (shared
-    standard, not a bank-proprietary contract).
+  - type: OpenAPI
+    url: openapi/move-bank-banking-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://openbanking.movebank.com.au/OpenBanking
+  - type: APIReference
+    url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- aid: move-bank:move-bank-banking-accounts-api
+  name: MOVE Bank Banking Accounts API
+  description: Banking Account endpoints
+  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
+  tags:
+  - Banking Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/move-bank-banking-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://openbanking.movebank.com.au/OpenBanking
+  - type: APIReference
+    url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- aid: move-bank:move-bank-banking-payees-api
+  name: MOVE Bank Banking Payees API
+  description: Banking Payee endpoints
+  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
+  tags:
+  - Banking Payees
+  properties:
+  - type: OpenAPI
+    url: openapi/move-bank-banking-payees-api-openapi.yml
+  - type: Documentation
+    url: https://openbanking.movebank.com.au/OpenBanking
+  - type: APIReference
+    url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+- aid: move-bank:move-bank-banking-products-api
+  name: MOVE Bank Banking Products API
+  description: Banking Product endpoints
+  humanURL: https://www.movebank.com.au/about-us/corporate-information/open-banking/
+  baseURL: https://openbanking.movebank.com.au/OpenBanking/cds-au/v1/banking/products
+  tags:
+  - Banking Products
+  properties:
+  - type: OpenAPI
+    url: openapi/move-bank-banking-products-api-openapi.yml
+  - type: Documentation
+    url: https://openbanking.movebank.com.au/OpenBanking
+  - type: APIReference
+    url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
 common:
 - type: AgenticAccess
   url: agentic-access/move-bank-agentic-access.yml
