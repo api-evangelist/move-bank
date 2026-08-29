@@ -13,6 +13,18 @@ description: MOVE Bank is a 100% customer-owned Australian mutual bank operated 
   public, unauthenticated Product Reference Data (PRD) API conforming to the Data Standards
   Body's Consumer Data Standards, alongside the accredited, consent-based consumer data
   sharing surface governed by the CDR security profile.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
