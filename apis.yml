@@ -150,6 +150,9 @@ apis:
   - type: APIReference
     url: https://www.movebank.com.au/about-us/corporate-information/open-banking/
 common:
+- type: CapabilityMap
+  url: capabilities/move-bank-capability-edges.yml
+  name: MOVE Bank Business Capability Map
 - type: AgenticAccess
   url: agentic-access/move-bank-agentic-access.yml
 - type: DomainSecurity
