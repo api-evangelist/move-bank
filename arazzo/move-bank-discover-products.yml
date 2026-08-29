@@ -6,8 +6,8 @@ info:
     List MOVE Bank's public CDR banking products then fetch full detail for the
     first one — an unauthenticated, forkable Product Reference Data walkthrough.
 sourceDescriptions:
-- name: moveBankCds
-  url: ../openapi/move-bank-cds-banking-products-openapi.yml
+- name: bankingProductsApi
+  url: ../openapi/move-bank-banking-products-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: discoverProducts
