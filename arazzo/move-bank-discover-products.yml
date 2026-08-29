@@ -5,6 +5,17 @@ info:
   summary: >
     List MOVE Bank's public CDR banking products then fetch full detail for the
     first one — an unauthenticated, forkable Product Reference Data walkthrough.
+  x-realizes-capability-ids:
+  - BC-1310.10
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-1310.10
+      capability_name: Product Catalogue Management
+      spec: move-bank-banking-products-api-openapi.yml
+      confidence: 0.9
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: bankingProductsApi
   url: ../openapi/move-bank-banking-products-api-openapi.yml
