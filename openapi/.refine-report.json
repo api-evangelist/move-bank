@@ -21,6 +21,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "move-bank-banking-account-balances-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "move-bank-banking-account-direct-debits-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "move-bank-banking-account-scheduled-payments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "move-bank-banking-account-transactions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "move-bank-banking-accounts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "move-bank-banking-payees-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "move-bank-banking-products-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }
