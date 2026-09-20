@@ -1,0 +1,67 @@
+slug: move-bank
+provider: MOVE Bank
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Banking Products
+  spec_file: move-bank-banking-products-api-openapi.yml
+  capability_id: BC-1310.10
+  capability_id_l1: BC-1310
+  capability_name: Product Catalogue Management
+  confidence: 0.9
+  evidence: GET /banking/products 'Get Products'; BankingProductDetailV7, BankingProductFeeV2, BankingProductDepositRateV2,
+    BankingProductLendingRateV3
+  reason: Publishes the bank's product catalogue with features, fees and rates — banking product catalogue
+    management.
+- tag: Banking Account Scheduled Payments
+  spec_file: move-bank-banking-account-scheduled-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.75
+  evidence: GET /banking/payments/scheduled listScheduledPaymentsBulk 'Get Scheduled Payments Bulk'; schemas
+    BankingScheduledPaymentV2, BankingScheduledPaymentRecurrence
+  reason: CDR open-banking endpoints exposing scheduled payment instructions and instalment plans on accounts
+    — payment instruction capture/authorisation data, i.e. payment initiation management. Read-only disclosure
+    adds some ambiguity.
+- tag: Banking Account Balances
+  spec_file: move-bank-banking-account-balances-api-openapi.yml
+  capability_id: BC-1330.10
+  capability_id_l1: BC-1330
+  capability_name: Deposit Account Management
+  confidence: 0.7
+  evidence: 'GET /banking/accounts/{accountId}/balance  getBankingBalance  Get Account Balance; schemas:
+    BankingBalance, BankingProductCategoryV2'
+  reason: Consumer Data Right banking endpoints exposing deposit account balances to accredited data recipients
+    — deposit account information servicing. Could also read as customer information management under
+    open banking.
+- tag: Banking Accounts
+  spec_file: move-bank-banking-accounts-api-openapi.yml
+  capability_id: BC-1330.10
+  capability_id_l1: BC-1330
+  capability_name: Deposit Account Management
+  confidence: 0.7
+  evidence: GET /banking/accounts 'Get Accounts'; schemas BankingTermDepositAccount, BankingCreditCardAccount,
+    BankingLoanAccountV3, BankingAccountDetailV5
+  reason: Exposes customer account master data (deposit, term deposit, loan, card accounts) — account
+    management/servicing. Multi-product coverage creates some ambiguity between deposits and lending.
+- tag: Banking Payees
+  spec_file: move-bank-banking-payees-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: GET /banking/payees 'Get Payees'; BankingDomesticPayee, BankingInternationalPayee, BankingBillerPayee,
+    BankingDigitalWalletPayee
+  reason: Saved payee registry used to initiate payments (domestic, international, biller, digital wallet)
+    — supports payment initiation. Read-only CDR disclosure lowers certainty.
